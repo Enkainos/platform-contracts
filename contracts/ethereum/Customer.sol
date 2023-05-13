@@ -1,10 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
-contract Company {
+contract Customer {
   string[] private name;
-  //contact name?
-  //contact number/email?
 
   function setName(string memory _name, uint256 calldata id) public {
     name[id] = _name;

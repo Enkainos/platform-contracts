@@ -1,7 +1,5 @@
 # Enkainos Platform Smart Contracts
 
-- [Requirements](#requirements)
-- [Installation](#installation)
 - [Setup](#setup)
   * [Using the .env File](#using-the-env-file)
   * [New Configuration File](#new-configuration-file)
@@ -12,56 +10,24 @@
   * [Basic Commands](#basic-commands)
   * [Testing](#testing)
   * [Communication Between Ethereum and Optimism Chains](#communication-between-ethereum-and-optimism-chains)
-- [Support](#support)
-
-<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
-
-This Truffle Optimism Box provides you with the boilerplate structure necessary to start coding for Optimism's Ethereum Layer 2 solution. For detailed information on how Optimism works, please see the documentation [here](http://community.optimism.io/docs/developers).
-
-As a starting point, this box contains only the SimpleStorage Solidity contract. Including minimal code was a conscious decision as this box is meant to provide the initial building blocks needed to get to work on Optimism without pushing developers to write any particular sort of application. With this box, you will be able to compile, migrate, and test Optimistic Solidity code against a variety of Optimism test networks. Check out how to build a NFT marketplace on Optimism [here](https://trufflesuite.com/guides/nft-marketplace/).
-
-Optimism's Layer 2 solution is almost fully compatible with the EVM, though it uses an "optimistic" EVM called the OVM. The main difference between the EVM and the OVM that developers will notice is that some opcodes are not available for contracts that are deployed to the OVM. You can see the complete list of differences between Optimism's fork of the `solc` compiler and the original [here](https://github.com/ethereum-optimism/solidity/compare/27d51765c0623c9f6aef7c00214e9fe705c331b1...develop-0.6).
-
-## Requirements
-
-The Optimism Box has the following requirements:
-
-- [Node.js](https://nodejs.org/) 10.x or later
-- [NPM](https://docs.npmjs.com/cli/) version 5.2 or later
-- [docker](https://docs.docker.com/get-docker/), version 19.03.12 or later
-- [docker-compose](https://docs.docker.com/compose/install/), version 1.27.3 or later
-- Recommended Docker memory allocation of >=8 GB.
-- Windows, Linux or MacOS
-
-
-Helpful, but optional:
-- An [Infura](https://infura.io/) account and Project ID
-- A [MetaMask](https://metamask.io/) account
+- References
+  * [Optimism](http://community.optimism.io/docs/developers)
+  * [OP vs ETH compiler](https://github.com/ethereum-optimism/solidity/compare/27d51765c0623c9f6aef7c00214e9fe705c331b1...develop-0.6).
 
 ## Setup
 
+Ensure you have truffle installed.
+```npm install --global truffle```
+
 ### Using the env File
 
-You will need at least one mnemonic to use with the network. The `.dotenv` npm package has been installed for you, and you will need to create a `.env` file for storing your mnemonic and any other needed private information.
+You will need at least one mnemonic to use with the network. The `.dotenv` npm package has been installed for you, and you will need to create a `.env` file for 
+storing your mnemonic and any other needed private information. You can access it from other files with `require('dotenv').config()` and refer to the variable 
+you need with `process.env['<YOUR_VARIABLE>']`.
 
-The `.env` file is ignored by git in this project, to help protect your private data. In general, it is good security practice to avoid committing information about your private keys to github. The `truffle-config.ovm.js` file expects a `GANACHE_MNEMONIC` and a `GOERLI_MNEMONIC` value to exist in `.env` for running commands on each of these networks, as well as a default `MNEMONIC` for the optimistic network we will run locally.
-
-If you are unfamiliar with using `.env` for managing your mnemonics and other keys, the basic steps for doing so are below:
-
-1) Use `touch .env` in the command line to create a `.env` file at the root of your project.
-2) Open the `.env` file in your preferred IDE
-3) Add the following, filling in your own Infura project key and mnemonics:
-
-```
-MNEMONIC="candy maple cake sugar pudding cream honey rich smooth crumble sweet treat"
-INFURA_KEY="<Your Infura Project ID>"
-GANACHE_MNEMONIC="<Your Ganache Mnemonic>"
-GOERLI_MNEMONIC="<Your Goerli Mnemonic>"
-```
-
-_Note: the value for the `MNEMONIC` above is the one you should use, as it is expected within the local optimistic ethereum network we will run in this Truffle Box._
-
-4) As you develop your project, you can put any other sensitive information in this file. You can access it from other files with `require('dotenv').config()` and refer to the variable you need with `process.env['<YOUR_VARIABLE>']`.
+1) Copy the `.env.example` file to `.env`
+2) Open the `.env` file in your preferred IDE or text editor
+3) Fill in the required values and save the file - this `.env` file will be ignored by git.
 
 ### New Configuration File
 
@@ -139,7 +105,8 @@ The code here will allow you to compile, migrate, and test your code against an 
  ```
  npm run exec:ovm script --network=(ganache | optimistic_ethereum | optimistic_goerli | dashboard)
  ```
-Using `truffle exec` gives your script access to the instance of web3 you have running, via `web3`, and also includes your contracts as global objects when executing the script. For more information on this command, see [here](https://trufflesuite.com/docs/truffle/reference/truffle-commands/#exec).  
+Using `truffle exec` gives your script access to the instance of web3 you have running, via `web3`, and also includes your contracts as global objects when executing the script. 
+For more information on this command, see [here](https://trufflesuite.com/docs/truffle/reference/truffle-commands/#exec).  
 
 ### Testing
 
@@ -163,8 +130,7 @@ Remember that there are some differences between the EVM and the OVM, and refer 
 
 ### Communication Between Ethereum and Optimism Chains
 
-The information above should allow you to deploy to the Optimism Layer 2 chain. This is only the first step! Once you are ready to deploy your own contracts to function on Layer 1 using Layer 2, you will need to be aware of the [ways in which Layer 1 and Layer 2 interact in the Optimism ecosystem](https://community.optimism.io/docs/developers/bridge/messaging). We have an [Optimism Bridge Box](https://trufflesuite.com/blog/introducing-the-optimism-bridge-truffle-box/?utm_source=github&utm_medium=devcommunity&utm_campaign=2022_Jul_optimism-box-readme_tutorial_content) that shows you just how to do that!
-
-## Support
-
-Support for this box is available via the Truffle community available [here](https://www.trufflesuite.com/community).
+The information above should allow you to deploy to the Optimism Layer 2 chain. This is only the first step! Once you are ready to deploy your own contracts to function on Layer 1 using Layer 2, 
+you will need to be aware of the [ways in which Layer 1 and Layer 2 interact in the Optimism ecosystem](https://community.optimism.io/docs/developers/bridge/messaging). We have 
+an [Optimism Bridge Box](https://trufflesuite.com/blog/introducing-the-optimism-bridge-truffle-box/?utm_source=github&utm_medium=devcommunity&utm_campaign=2022_Jul_optimism-box-readme_tutorial_content) that 
+shows you just how to do that!
