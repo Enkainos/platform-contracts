@@ -10,8 +10,9 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v3
 
-      - name: Build & Deploy
+      - name: Build
         run: |
+          npm install -g truffle
           npm install
           npm run compile:evm
 
