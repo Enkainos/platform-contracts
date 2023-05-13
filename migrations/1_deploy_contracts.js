@@ -1,6 +1,5 @@
-
-var SimpleStorage = artifacts.require("SimpleStorage");
+let Company = artifacts.require("Company");
 
 module.exports = function(deployer) {
-  deployer.deploy(SimpleStorage);
+  deployer.deploy(Company);
 };
