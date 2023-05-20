@@ -14,8 +14,7 @@
     "test:evm": "truffle test",
     "test:ovm": "truffle test --config truffle-config.ovm.js --network $npm_config_network",
     "exec:evm": "truffle exec",
-    "exec:ovm": "truffle exec $script --config truffle-config.ovm.js --network $npm_config_network",
-    "test:report": "truffle run coverage"
+    "exec:ovm": "truffle exec $script --config truffle-config.ovm.js --network $npm_config_network"
   },
   "devDependencies": {
     "@eth-optimism/plugins": "^0.0.20",

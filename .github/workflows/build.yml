@@ -21,7 +21,3 @@ jobs:
         with:
           name: contracts
           path: build/
-
-      - name: Code coverage
-        run: |
-          npm run test:report
