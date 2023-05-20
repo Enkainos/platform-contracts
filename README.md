@@ -4,7 +4,7 @@
   * [Using the .env File](#using-the-env-file)
   * [New Configuration File](#new-configuration-file)
   * [New Directory Structure for Artifacts](#new-directory-structure-for-artifacts)
-- [Optimistic Ethereum](#optimistic-ethereum)
+- [Developing Contracts](#optimistic-ethereum)
   * [Compiling](#compiling)
   * [Migrating](#migrating)
   * [Basic Commands](#basic-commands)
@@ -39,7 +39,15 @@ Please note, the classic `truffle-config.js` configuration file is included here
 
 When you compile or migrate, the resulting `json` files will be at `build/optimism-contracts/`. This is to distinguish them from any Ethereum contracts you build, which will live in `build/ethereum-contracts`. As we have included the appropriate `contracts_build_directory` in each configuration file, Truffle will know which set of built files to reference!
 
-## Optimistic Ethereum
+## Developing Contracts
+- Open Zeppelin v4: https://docs.openzeppelin.com/contracts/4.x/
+- Data types
+  - Set: https://docs.openzeppelin.com/contracts/4.x/api/utils#EnumerableSet
+  - Map: https://docs.openzeppelin.com/contracts/4.x/api/utils#EnumerableMap
+- OP cross chain support: https://docs.openzeppelin.com/contracts/4.x/api/crosschain#CrossChainEnabledOptimism 
+- Access Control 
+  - Documentation: https://docs.openzeppelin.com/contracts/4.x/api/access#AccessControl
+  - Cross chain implementation: https://docs.openzeppelin.com/contracts/4.x/api/access#AccessControlCrossChain
 
 ### Compiling
 

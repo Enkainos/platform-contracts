@@ -14,11 +14,16 @@
     "test:evm": "truffle test",
     "test:ovm": "truffle test --config truffle-config.ovm.js --network $npm_config_network",
     "exec:evm": "truffle exec",
-    "exec:ovm": "truffle exec $script --config truffle-config.ovm.js --network $npm_config_network"
+    "exec:ovm": "truffle exec $script --config truffle-config.ovm.js --network $npm_config_network",
+    "test:report": "truffle run coverage"
   },
   "devDependencies": {
     "@eth-optimism/plugins": "^0.0.20",
     "@truffle/hdwallet-provider": "^1.6.0",
-    "dotenv": "^8.2.0"
+    "dotenv": "^8.2.0",
+    "solidity-coverage": "^0.8.2"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.8.3"
   }
 }
