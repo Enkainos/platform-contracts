@@ -1,30 +1,30 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
-import "@openzeppelin/contracts/access/AccessControlCrossChain.sol";
-import "@openzeppelin/contracts/crosschain/optimism/CrossChainEnabledOptimism.sol";
+import {AccessControlCrossChainOptimism} from "./lib/AccessControlCrossChainOptimism.sol";
+import {ICustomerInvoiceDocument} from "./interfaces/ICustomerInvoiceDocument.sol";
 
-contract SupplierInvoiceDocument is CrossChainEnabledOptimism, AccessControlCrossChain {
+contract CustomerInvoiceDocument is ICustomerInvoiceDocument, AccessControlCrossChainOptimism {
 
   bytes32 public constant OWNER = keccak256("OWNER");
 
-  uint256[] private invoice;
-  string[] private documentUrl;
+  uint256[] private invoices;
+  string[] private documentUrls;
 
-  constructor(address crossChainMessenger) CrossChainEnabledOptimism(crossChainMessenger){}
+  constructor(address crossChainMessenger) AccessControlCrossChainOptimism(crossChainMessenger){}
 
-  function create(uint256 memory _invoiceId, string memory _documentUrl)
-  public require(hasRole(OWNER, msg.sender))
-  returns (uint256 memory){
-    uint256 id = invoice.length;
-    invoice[id] = _invoiceId;
-    documentUrl[id] = _documentUrl;
+  function create(uint256 _invoiceId, string memory _documentUrl)
+  public onlyRole(OWNER)
+  returns (uint256 customerInvoiceDocumentId){
+    uint256 id = invoices.length;
+    invoices[id] = _invoiceId;
+    documentUrls[id] = _documentUrl;
     return id;
   }
 
-  function get(uint256 calldata id)
+  function get(uint256 id)
   public view
-  returns (uint256 invoiceId, string memory) {
-    return (invoice[id], documentUrl[id]);
+  returns (uint256 invoiceId, string memory documentUrl) {
+    return (invoices[id], documentUrls[id]);
   }
 }

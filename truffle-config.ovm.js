@@ -23,7 +23,7 @@ module.exports = {
   /**
   *  contracts_directory tells Truffle where to find your contracts
   */
-  contracts_directory: './contracts/optimism',
+  contracts_directory: './contracts',
 
   networks: {
     // development: {

@@ -1,47 +1,48 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
-import "@openzeppelin/contracts/access/AccessControlCrossChain.sol";
-import "@openzeppelin/contracts/crosschain/optimism/CrossChainEnabledOptimism.sol";
+import {AccessControlCrossChainOptimism} from "./lib/AccessControlCrossChainOptimism.sol";
+import {ISupplierInvoice} from "./interfaces/ISupplierInvoice.sol";
 
-contract SupplierInvoice is CrossChainEnabledOptimism, AccessControlCrossChain {
+contract SupplierInvoice is ISupplierInvoice, AccessControlCrossChainOptimism {
 
   bytes32 public constant OWNER = keccak256("OWNER");
 
-  uint256[] private supplier;
-  uint256[] private operation;
-  uint256[][] private materials;
-  uint256[][] private quantities;
-  uint256[] private timestamp;
+  uint256[] private suppliers;
+  uint256[] private operations;
+  uint256[][] private materialLists;
+  uint256[][] private quantityLists;
+  uint256[] private timestamps;
 
-  constructor(address crossChainMessenger) CrossChainEnabledOptimism(crossChainMessenger){}
+  constructor(address crossChainMessenger) AccessControlCrossChainOptimism(crossChainMessenger){}
 
   function create(
-    string memory _supplierId,
-    uint256 memory _operationId,
+    uint256 _supplierId,
+    uint256 _operationId,
     uint256[] memory _materials,
-    uint256[] memory _quantities
+    uint256[] memory _quantities,
+    uint256 _timestamp
   )
-  public require(hasRole(OWNER, msg.sender))
-  returns (uint256 memory){
-    uint256 id = supplier.length;
-    supplier[id] = _supplierId;
-    operation[id] = _operationId;
-    materials[id] = _materials;
-    quantities[id] = _quantities;
-    timestamp[id] = _timestamp;
+  public onlyRole(OWNER)
+  returns (uint256 supplierInvoiceId){
+    uint256 id = suppliers.length;
+    suppliers[id] = _supplierId;
+    operations[id] = _operationId;
+    materialLists[id] = _materials;
+    quantityLists[id] = _quantities;
+    timestamps[id] = _timestamp;
     return id;
   }
 
-  function get(uint256 calldata id)
+  function get(uint256 id)
   public view
   returns (
-    uint256 memory supplierId,
-    uint256 memory operationId,
+    uint256 supplierId,
+    uint256 operationId,
     uint256[] memory materials,
     uint256[] memory quantities,
-    uint256 memory timestamp
+    uint256 timestamp
   ) {
-    return (supplier[id], operation[id], materials[id], quantities[id], timestamp[id]);
+    return (suppliers[id], operations[id], materialLists[id], quantityLists[id], timestamps[id]);
   }
 }

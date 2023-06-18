@@ -1,39 +1,39 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
-import "@openzeppelin/contracts/access/AccessControlCrossChain.sol";
-import "@openzeppelin/contracts/crosschain/optimism/CrossChainEnabledOptimism.sol";
+import {AccessControlCrossChainOptimism} from "./lib/AccessControlCrossChainOptimism.sol";
+import {ISupplier} from "./interfaces/ISupplier.sol";
 
-contract Supplier is CrossChainEnabledOptimism, AccessControlCrossChain {
+contract Supplier is ISupplier, AccessControlCrossChainOptimism {
 
   bytes32 public constant OWNER = keccak256("OWNER");
 
-  string[] private name;
-  uint256[][] private operations;
+  string[] private names;
+  uint256[][] private operationLists;
 
-  constructor(address crossChainMessenger) CrossChainEnabledOptimism(crossChainMessenger){}
+  constructor(address crossChainMessenger) AccessControlCrossChainOptimism(crossChainMessenger){}
 
   function create(string memory _name)
-  public require(hasRole(OWNER, msg.sender))
-  returns (uint256 memory supplierId) {
-    uint256 id = name.length;
-    name[id] = _name;
+  public onlyRole(OWNER)
+  returns (uint256 supplierId) {
+    uint256 id = names.length;
+    names[id] = _name;
     return id;
   }
 
-  function get(uint256 calldata id)
+  function get(uint256 id)
   public view
   returns (string memory name, uint256[] memory operations) {
-    return (name[id], operations[id]);
+    return (names[id], operationLists[id]);
   }
 
-  function addOperation(uint256 calldata id, uint256 memory operationId)
-  public require(hasRole(OWNER, msg.sender)) {
-    operations[id].push(operationId);
+  function addOperation(uint256 id, uint256 operationId)
+  public onlyRole(OWNER) {
+    operationLists[id].push(operationId);
   }
 
-  function removeOperation(uint256 calldata id, uint256 calldata index)
-  public require(hasRole(OWNER, msg.sender)) {
-    operations[id][index] = 0; //free up data better?
+  function removeOperation(uint256 id, uint256 index)
+  public onlyRole(OWNER) {
+    operationLists[id][index] = 0; //free up data better?
   }
 }

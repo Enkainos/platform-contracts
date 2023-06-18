@@ -17,7 +17,7 @@ module.exports = {
   /**
   * contracts_directory tells Truffle where to find your contracts
   */
-  contracts_directory: './contracts/ethereum',
+  contracts_directory: './contracts',
 
   /**
    * Networks define how you connect to your ethereum client and let you set the
@@ -33,7 +33,7 @@ module.exports = {
     // Useful for testing. The `development` name is special - truffle uses it by default
     // if it's defined here and no other network is specified at the command line.
     // You should run a client (like ganache-cli, geth or parity) in a separate terminal
-    // tab if you use this network and you must also set the `host`, `port` and `network_id`
+    // tab if you use this network, and you must also set the `host`, `port` and `network_id`
     // options below to some value.
     //
     // development: {

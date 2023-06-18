@@ -1,30 +1,30 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
-import "@openzeppelin/contracts/access/AccessControlCrossChain.sol";
-import "@openzeppelin/contracts/crosschain/optimism/CrossChainEnabledOptimism.sol";
+import {AccessControlCrossChainOptimism} from "./lib/AccessControlCrossChainOptimism.sol";
+import {ISupplierFacility} from "./interfaces/ISupplierFacility.sol";
 
-contract SupplierFacility is CrossChainEnabledOptimism, AccessControlCrossChain {
+contract SupplierFacility is ISupplierFacility, AccessControlCrossChainOptimism {
 
   bytes32 public constant OWNER = keccak256("OWNER");
 
-  string[] private name;
-  uint256[] private supplier;
+  string[] private names;
+  uint256[] private suppliers;
 
-  constructor(address crossChainMessenger) CrossChainEnabledOptimism(crossChainMessenger){}
+  constructor(address crossChainMessenger) AccessControlCrossChainOptimism(crossChainMessenger){}
 
-  function create(string memory _name, uint256 memory _supplierId)
-  public require(hasRole(OWNER, msg.sender))
-  returns (uint256 memory facilityId) {
-    uint256 id = name.length;
-    name[id] = _name;
-    supplier[id] = _supplierId;
+  function create(string memory _name, uint256 _supplierId)
+  public onlyRole(OWNER)
+  returns (uint256 facilityId) {
+    uint256 id = names.length;
+    names[id] = _name;
+    suppliers[id] = _supplierId;
     return id;
   }
 
-  function get(uint256 calldata id)
+  function get(uint256 id)
   public view
-  returns (string memory name, uint256 memory supplierId) {
-    return (name[id], supplier[id]);
+  returns (string memory name, uint256 supplierId) {
+    return (names[id], suppliers[id]);
   }
 }
