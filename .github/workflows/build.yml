@@ -4,7 +4,8 @@ on:
       - 'main'
 
 jobs:
-  build-and-deploy:
+  generate-candidate-build:
+    name: "Push: main"
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
