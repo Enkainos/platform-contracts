@@ -1,3 +1,4 @@
+name: "Push: main"
 on:
   push:
     branches:
@@ -5,7 +6,7 @@ on:
 
 jobs:
   generate-candidate-build:
-    name: "Push: main"
+    name: build
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
