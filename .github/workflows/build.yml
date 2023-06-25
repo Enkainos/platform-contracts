@@ -10,11 +10,17 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v3
 
-      - name: Build
+      - name: Install Dependencies
         run: |
           npm install -g truffle
           npm install
+
+      - name: Test
+        run: |
           npm run test:evm
+
+      - name: Compile
+        run: |
           npm run compile:evm
 
       - name: Save Artifact
