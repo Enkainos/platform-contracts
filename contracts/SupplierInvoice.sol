@@ -14,7 +14,9 @@ contract SupplierInvoice is ISupplierInvoice, AccessControlCrossChainOptimism {
   uint256[][] private quantityLists;
   uint256[] private timestamps;
 
-  constructor(address crossChainMessenger) AccessControlCrossChainOptimism(crossChainMessenger){}
+  constructor(address crossChainMessenger) AccessControlCrossChainOptimism(crossChainMessenger){
+    _grantRole(OWNER, msg.sender);
+  }
 
   function create(
     uint256 _supplierId,
@@ -26,11 +28,11 @@ contract SupplierInvoice is ISupplierInvoice, AccessControlCrossChainOptimism {
   public onlyRole(OWNER)
   returns (uint256 supplierInvoiceId){
     uint256 id = suppliers.length;
-    suppliers[id] = _supplierId;
-    operations[id] = _operationId;
-    materialLists[id] = _materials;
-    quantityLists[id] = _quantities;
-    timestamps[id] = _timestamp;
+    suppliers.push(_supplierId);
+    operations.push(_operationId);
+    materialLists.push(_materials);
+    quantityLists.push(_quantities);
+    timestamps.push(_timestamp);
     return id;
   }
 

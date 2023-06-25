@@ -12,15 +12,17 @@ contract Material is IMaterial, AccessControlCrossChainOptimism {
   string[] private units;
   uint8[] private precisions;
 
-  constructor(address crossChainMessenger) AccessControlCrossChainOptimism(crossChainMessenger){}
+  constructor(address crossChainMessenger) AccessControlCrossChainOptimism(crossChainMessenger){
+    _grantRole(OWNER, msg.sender);
+  }
 
   function create(string memory _name, string memory _unit, uint8 _precision)
   public onlyRole(OWNER)
   returns (uint256 materialId) {
     uint256 id = names.length;
-    names[id] = _name;
-    units[id] = _unit;
-    precisions[id] = _precision;
+    names.push(_name);
+    units.push(_unit);
+    precisions.push(_precision);
     return id;
   }
 

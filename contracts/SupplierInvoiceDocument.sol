@@ -11,7 +11,9 @@ contract SupplierInvoiceDocument is ISupplierInvoiceDocument, AccessControlCross
   uint256[] private invoices;
   string[] private documentUrls;
 
-  constructor(address crossChainMessenger) AccessControlCrossChainOptimism(crossChainMessenger){}
+  constructor(address crossChainMessenger) AccessControlCrossChainOptimism(crossChainMessenger){
+    _grantRole(OWNER, msg.sender);
+  }
 
   function create(
     uint256 _invoiceId,
@@ -20,8 +22,8 @@ contract SupplierInvoiceDocument is ISupplierInvoiceDocument, AccessControlCross
   public onlyRole(OWNER)
   returns (uint256 supplierInvoiceDocumentId){
     uint256 id = invoices.length;
-    invoices[id] = _invoiceId;
-    documentUrls[id] = _documentUrl;
+    invoices.push(_invoiceId);
+    documentUrls.push(_documentUrl);
     return id;
   }
 

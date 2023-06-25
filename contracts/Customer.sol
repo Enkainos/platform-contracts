@@ -11,13 +11,15 @@ contract Customer is ICustomer, AccessControlCrossChainOptimism {
   string[] private names;
   uint256[][] private operationLists;
 
-  constructor(address crossChainMessenger) AccessControlCrossChainOptimism(crossChainMessenger){}
+  constructor(address crossChainMessenger) AccessControlCrossChainOptimism(crossChainMessenger){
+    _grantRole(OWNER, msg.sender);
+  }
 
   function create(string memory _name)
   public onlyRole(OWNER)
   returns (uint256 customerId) {
     uint256 id = names.length;
-    names[id] = _name;
+    names.push(_name);
     return id;
   }
 

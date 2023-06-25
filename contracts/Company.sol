@@ -10,13 +10,18 @@ contract Company is ICompany, AccessControlCrossChainOptimism {
 
   string[] private names;
 
-  constructor(address crossChainMessenger) AccessControlCrossChainOptimism(crossChainMessenger){}
+  constructor(address crossChainMessenger) AccessControlCrossChainOptimism(crossChainMessenger){
+    _grantRole(OWNER, msg.sender);
+  }
+
+  event Created(uint256 indexed _id);
 
   function create(string memory _name)
   public onlyRole(OWNER)
   returns (uint256 companyId){
     uint256 id = names.length;
-    names[id] = _name;
+    names.push(_name);
+    emit Created(id);
     return id;
   }
 

@@ -11,14 +11,16 @@ contract SupplierFacility is ISupplierFacility, AccessControlCrossChainOptimism 
   string[] private names;
   uint256[] private suppliers;
 
-  constructor(address crossChainMessenger) AccessControlCrossChainOptimism(crossChainMessenger){}
+  constructor(address crossChainMessenger) AccessControlCrossChainOptimism(crossChainMessenger){
+    _grantRole(OWNER, msg.sender);
+  }
 
   function create(string memory _name, uint256 _supplierId)
   public onlyRole(OWNER)
   returns (uint256 facilityId) {
     uint256 id = names.length;
-    names[id] = _name;
-    suppliers[id] = _supplierId;
+    names.push(_name);
+    suppliers.push(_supplierId);
     return id;
   }
 

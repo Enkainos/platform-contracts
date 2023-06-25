@@ -11,14 +11,16 @@ contract CustomerFacility is ICustomerFacility, AccessControlCrossChainOptimism 
   string[] private names;
   uint256[] private customers;
 
-  constructor(address crossChainMessenger) AccessControlCrossChainOptimism(crossChainMessenger){}
+  constructor(address crossChainMessenger) AccessControlCrossChainOptimism(crossChainMessenger){
+    _grantRole(OWNER, msg.sender);
+  }
 
   function create(string memory _name, uint256 _customerId)
   public onlyRole(OWNER)
   returns (uint256 customerFacilityId) {
     uint256 id = names.length;
-    names[id] = _name;
-    customers[id] = _customerId;
+    names.push(_name);
+    customers.push(_customerId);
     return id;
   }
 

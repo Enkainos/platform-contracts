@@ -11,14 +11,16 @@ contract Operation is IOperation, AccessControlCrossChainOptimism {
   string[] private names;
   uint256[] private companies;
 
-  constructor(address crossChainMessenger) AccessControlCrossChainOptimism(crossChainMessenger){}
+  constructor(address crossChainMessenger) AccessControlCrossChainOptimism(crossChainMessenger){
+    _grantRole(OWNER, msg.sender);
+  }
 
   function create(string memory _name, uint256 _companyId)
   public onlyRole(OWNER)
   returns (uint256 operationId) {
     uint256 id = names.length;
-    names[id] = _name;
-    companies[id] = _companyId;
+    names.push(_name);
+    companies.push(_companyId);
     return id;
   }
 

@@ -11,14 +11,16 @@ contract CustomerInvoiceDocument is ICustomerInvoiceDocument, AccessControlCross
   uint256[] private invoices;
   string[] private documentUrls;
 
-  constructor(address crossChainMessenger) AccessControlCrossChainOptimism(crossChainMessenger){}
+  constructor(address crossChainMessenger) AccessControlCrossChainOptimism(crossChainMessenger){
+    _grantRole(OWNER, msg.sender);
+  }
 
   function create(uint256 _invoiceId, string memory _documentUrl)
   public onlyRole(OWNER)
   returns (uint256 customerInvoiceDocumentId){
     uint256 id = invoices.length;
-    invoices[id] = _invoiceId;
-    documentUrls[id] = _documentUrl;
+    invoices.push(_invoiceId);
+    documentUrls.push(_documentUrl);
     return id;
   }
 
