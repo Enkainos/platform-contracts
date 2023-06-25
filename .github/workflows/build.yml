@@ -6,7 +6,7 @@ on:
 
 jobs:
   generate-candidate-build:
-    name: build
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code

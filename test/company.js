@@ -11,11 +11,11 @@ contract("Company", (accounts) => {
     let tx = await company.create("Enkainos", {from: accounts[0]});
     let id = tx.logs[0].args[0].toNumber();
     let name = await company.get.call(id);
-    assert.equal(name, "Enkainos", "The name was not stored.");
+    assert.equal(name, "Enkainos", "The company was not created successfully");
 
     tx = await company.create("Harrison Enterprises", {from: accounts[0]});
     id = tx.logs[0].args[0].toNumber();
     name = await company.get.call(id);
-    assert.equal(name, "Harrison Enterprises", "The name was not stored.");
+    assert.equal(name, "Harrison Enterprises", "The company was not created successfully");
   });
 });
