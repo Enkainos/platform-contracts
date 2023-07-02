@@ -11,6 +11,8 @@ contract Operation is IOperation, AccessControlCrossChainOptimism {
   string[] private names;
   uint256[] private companies;
 
+  event Created(uint256 indexed _id);
+
   constructor(address crossChainMessenger) AccessControlCrossChainOptimism(crossChainMessenger){
     _grantRole(OWNER, msg.sender);
   }
@@ -21,6 +23,7 @@ contract Operation is IOperation, AccessControlCrossChainOptimism {
     uint256 id = names.length;
     names.push(_name);
     companies.push(_companyId);
+    emit Created(id);
     return id;
   }
 

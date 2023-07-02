@@ -14,6 +14,8 @@ contract CustomerInvoice is ICustomerInvoice, AccessControlCrossChainOptimism {
   uint256[][] private quantityLists;
   uint256[] private timestamps;
 
+  event Created(uint256 indexed _id);
+
   constructor(address crossChainMessenger) AccessControlCrossChainOptimism(crossChainMessenger){
     _grantRole(OWNER, msg.sender);
   }
@@ -33,6 +35,7 @@ contract CustomerInvoice is ICustomerInvoice, AccessControlCrossChainOptimism {
     materialLists.push(_materials);
     quantityLists.push(_quantities);
     timestamps.push(_timestamp);
+    emit Created(id);
     return id;
   }
 

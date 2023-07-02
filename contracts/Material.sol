@@ -12,6 +12,8 @@ contract Material is IMaterial, AccessControlCrossChainOptimism {
   string[] private units;
   uint8[] private precisions;
 
+  event Created(uint256 indexed _id);
+
   constructor(address crossChainMessenger) AccessControlCrossChainOptimism(crossChainMessenger){
     _grantRole(OWNER, msg.sender);
   }
@@ -23,6 +25,7 @@ contract Material is IMaterial, AccessControlCrossChainOptimism {
     names.push(_name);
     units.push(_unit);
     precisions.push(_precision);
+    emit Created(id);
     return id;
   }
 
