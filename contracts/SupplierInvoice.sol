@@ -10,6 +10,7 @@ contract SupplierInvoice is ISupplierInvoice, AccessControlCrossChainOptimism {
 
   uint256[] private suppliers;
   uint256[] private operations;
+  uint256[] private facilities;
   uint256[][] private materialLists;
   uint256[][] private quantityLists;
   uint256[] private timestamps;
@@ -23,6 +24,7 @@ contract SupplierInvoice is ISupplierInvoice, AccessControlCrossChainOptimism {
   function create(
     uint256 _supplierId,
     uint256 _operationId,
+    uint256 _facilityId,
     uint256[] memory _materials,
     uint256[] memory _quantities,
     uint256 _timestamp
@@ -32,6 +34,7 @@ contract SupplierInvoice is ISupplierInvoice, AccessControlCrossChainOptimism {
     uint256 id = suppliers.length;
     suppliers.push(_supplierId);
     operations.push(_operationId);
+    facilities.push(_facilityId);
     materialLists.push(_materials);
     quantityLists.push(_quantities);
     timestamps.push(_timestamp);
@@ -44,10 +47,11 @@ contract SupplierInvoice is ISupplierInvoice, AccessControlCrossChainOptimism {
   returns (
     uint256 supplierId,
     uint256 operationId,
+    uint256 facilityId,
     uint256[] memory materials,
     uint256[] memory quantities,
     uint256 timestamp
   ) {
-    return (suppliers[id], operations[id], materialLists[id], quantityLists[id], timestamps[id]);
+    return (suppliers[id], operations[id], facilities[id], materialLists[id], quantityLists[id], timestamps[id]);
   }
 }

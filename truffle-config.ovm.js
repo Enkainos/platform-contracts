@@ -3,12 +3,12 @@
 require('dotenv').config();
 const ganacheMnemonic = process.env["GANACHE_MNEMONIC"];
 const goerliMnemonic = process.env["GOERLI_MNEMONIC"];
-const mnemonic = 'test test test test test test test test test test test junk' // process.env["MNEMONIC"];
+const mnemonic = process.env["MNEMONIC"];
 
 const infuraKey = process.env["INFURA_KEY"];
 
 //uncomment to use mainnetMnemonic, be sure to set it in the .env file
-//const mainnetMnemonic = process.env["MAINNET_MNEMONIC"]
+//const mainnetMnemonic = process.env["MNEMONIC"]
 
 const { ganache } = require('@eth-optimism/plugins/ganache');
 const HDWalletProvider = require('@truffle/hdwallet-provider');
@@ -26,13 +26,6 @@ module.exports = {
   contracts_directory: './contracts',
 
   networks: {
-    // development: {
-    //   host: "127.0.0.1",     // Localhost (default: none)
-    //   port: 8545,            // Standard Ethereum port (default: none)
-    //   network_id: "*"       // Any network (default: none)
-    // },
-    // for use with local environment -- see README and list of available
-    // scripts in package.json for steps to get this running on your local machine
     optimistic_ethereum: {
       network_id: 17,
       provider: function () {

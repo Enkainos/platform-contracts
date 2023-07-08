@@ -32,7 +32,7 @@ contract("SupplierInvoiceDocument", (accounts) => {
     tx = await operation.create("Enkainos Main Campus", companyId, {from: accounts[0]});
     let operationId = tx.logs[0].args[0].toNumber();
 
-    // Create CustomerInvoice
+    // Create SupplierInvoice
     tx = await supplierInvoice.create(supplierId, operationId, [0, 1, 2], [50, 100, 10], 10, {from: accounts[0]});
     let invoiceId = tx.logs[0].args[0].toNumber();
 

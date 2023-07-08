@@ -9,6 +9,7 @@
     "checkLocalOptimismReady": "cd optimism/ops && scripts/wait-for-sequencer.sh && echo 'System is ready to accept transactions'",
     "compile:evm": "truffle compile",
     "compile:ovm": "truffle compile --config truffle-config.ovm.js",
+    "deploy:local": "truffle migrate --network development",
     "migrate:evm": "truffle migrate",
     "migrate:ovm": "truffle migrate --skip-dry-run --config truffle-config.ovm.js --network $npm_config_network",
     "test:evm": "truffle test",

@@ -6,7 +6,7 @@ contract("Supplier", (accounts) => {
   let company;
   let supplier;
   let operation;
-  let customerId;
+  let supplierId;
 
   beforeEach(async () => {
     company = await companyContract.new("0x9D1dACf9d9299D17EFFE1aAd559c06bb3Fbf9BC4", {from: accounts[0]});
@@ -16,13 +16,13 @@ contract("Supplier", (accounts) => {
 
   it("...can create new suppliers", async () => {
     let tx = await supplier.create("Off-taker Pro", {from: accounts[0]});
-    customerId = tx.logs[0].args[0].toNumber();
-    let response = await supplier.get.call(customerId);
+    supplierId = tx.logs[0].args[0].toNumber();
+    let response = await supplier.get.call(supplierId);
     assert.equal(response.name, "Off-taker Pro", "The supplier was not created successfully");
 
     tx = await supplier.create("Oil Processors Inc.", {from: accounts[0]});
-    customerId = tx.logs[0].args[0].toNumber();
-    response = await supplier.get.call(customerId);
+    supplierId = tx.logs[0].args[0].toNumber();
+    response = await supplier.get.call(supplierId);
     assert.equal(response.name, "Oil Processors Inc.", "The supplier was not created successfully");
   });
 
@@ -35,8 +35,8 @@ contract("Supplier", (accounts) => {
     tx = await operation.create("Enkainos Main Campus", companyId, {from: accounts[0]});
     let operationId = tx.logs[0].args[0].toNumber();
 
-    await supplier.addOperation(customerId, operationId, {from: accounts[0]});
-    let response = await supplier.get.call(customerId);
+    await supplier.addOperation(supplierId, operationId, {from: accounts[0]});
+    let response = await supplier.get.call(supplierId);
     assert.equal(response.operations[0], operationId, "The operation was not added successfully");
   });
 
@@ -48,10 +48,10 @@ contract("Supplier", (accounts) => {
     // Create and add Operation
     tx = await operation.create("Enkainos Main Campus", companyId, {from: accounts[0]});
     let operationId = tx.logs[0].args[0].toNumber();
-    await supplier.addOperation(customerId, operationId, {from: accounts[0]});
+    await supplier.addOperation(supplierId, operationId, {from: accounts[0]});
 
-    await supplier.removeOperation(customerId, operationId, {from: accounts[0]});
-    let response = await supplier .get.call(customerId);
+    await supplier.removeOperation(supplierId, operationId, {from: accounts[0]});
+    let response = await supplier .get.call(supplierId);
     assert.equal(response.operations.length, 0, "The operation was not removed successfully");
   });
 });
